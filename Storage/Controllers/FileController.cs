@@ -18,6 +18,7 @@ namespace Storage.Controllers
 
         public FileController()
         {
+
             blobInteractor =
                 InteractorFactory.MakeBlobInteractor(ConfigurationManager.ConnectionStrings["AzureStorage"].ConnectionString);
         }
