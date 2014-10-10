@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>AzureSDK2.2DLLs</id>
+    <version>1.0.0</version>
+    <title>Azure SDK 2.2 DLLs</title>
+    <authors>Microsoft</authors>
+    <owners>Microsoft</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Contains the following Azure SDK DLLs:
+1. Microsoft.WindowsAzure.Diagnostics.dll v2.2
+2. Microsoftr.WindowsAzure.ServiceRuntime.dll v2.2
+3. Microsoft.WindowsAzure.StorageClient.dll v1.7</description>
+  </metadata>
+</package>
