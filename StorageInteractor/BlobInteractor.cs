@@ -9,9 +9,9 @@ namespace StorageInteractor
 {
     public interface BlobInteractor
     {
-        IEnumerable<IListBlobItem> GetAllBlobs();
-        IEnumerable<IListBlobItem> GetBlobsByName(string blobName);
-        IEnumerable<IListBlobItem> GetBlobsByContentType(string contentType);
-        IEnumerable<IListBlobItem> GetBlobsByModifiedDate(DateTime fromDate, DateTime toDate);
+        IEnumerable<IListBlobItem> GetAllBlobs(string containerName);
+        IEnumerable<IListBlobItem> GetBlobsByName(string containerName, string blobName);
+        IEnumerable<IListBlobItem> GetBlobsByExtension(string containerName, string extension);
+        IEnumerable<IListBlobItem> GetBlobsByModifiedDate(string containerName, DateTime fromDate, DateTime toDate);
     }
 }

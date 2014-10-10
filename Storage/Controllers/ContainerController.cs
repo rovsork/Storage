@@ -28,15 +28,12 @@ namespace Storage.Controllers
         {
             var containers = containerInteractor.GetAllContainerDetails();
 
-            return containers.Select(cloudBlobContainer => new ContainerDetails()
-                {
-                    //Attributes = cloudBlobContainer.Attributes,
-                    //Metadata = cloudBlobContainer.Metadata,
-                    Name = cloudBlobContainer.Name,
-                    //Properties = cloudBlobContainer.Properties,
-                    //ServiceClient = cloudBlobContainer.ServiceClient,
-                    Uri = cloudBlobContainer.Uri
-                });
+            foreach (CloudBlobContainer cloudBlobContainer in containers)
+                yield return new ContainerDetails()
+                    {
+                        Name = cloudBlobContainer.Name,
+                        Uri = cloudBlobContainer.Uri
+                    };
         }
     }
 }

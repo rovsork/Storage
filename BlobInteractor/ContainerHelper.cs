@@ -16,18 +16,18 @@ namespace DataInteractor
             blobClient = storageAccount.CreateCloudBlobClient();
         }
 
-        public CloudBlobContainer CreateNewContainer(int containerId)
+        public CloudBlobContainer CreateNewContainer(string containerName)
         {
-            CloudBlobContainer container = blobClient.GetContainerReference(containerId.ToString());
+            CloudBlobContainer container = blobClient.GetContainerReference(containerName);
 
             container.CreateIfNotExist();
 
             return container;
         }
 
-        public CloudBlobContainer GetContainerById(int containerId)
+        public CloudBlobContainer GetContainerByName(string containerName)
         {
-            CloudBlobContainer container = blobClient.GetContainerReference(containerId.ToString());
+            CloudBlobContainer container = blobClient.GetContainerReference(containerName);
             
             var permissions = container.GetPermissions();
 

@@ -5,8 +5,8 @@ namespace StorageInteractor
 {
     public interface ContainerInteractor
     {
-        CloudBlobContainer CreateNewContainer(int containerId);
-        CloudBlobContainer GetContainerById(int containerId);
+        CloudBlobContainer CreateNewContainer(string containerName);
+        CloudBlobContainer GetContainerByName(string containerName);
         IEnumerable<CloudBlobContainer> GetAllContainerDetails();
     }
 }

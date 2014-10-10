@@ -15,9 +15,9 @@ namespace Factory
             return new ContainerHelper(connectionString);
         }
 
-        public static BlobInteractor MakeBlobInteractor(string connectionString, int containerId)
+        public static BlobInteractor MakeBlobInteractor(string connectionString)
         {
-            return new BlobHelper(connectionString, containerId);
+            return new BlobHelper(connectionString);
         }
     }
 }

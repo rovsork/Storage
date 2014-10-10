@@ -11,33 +11,38 @@ namespace DataInteractor
 {
     public class BlobHelper : BlobInteractor
     {
-        private readonly CloudBlobContainer container;
+        private readonly CloudBlobClient blobClient;
+        private CloudBlobContainer container;
 
-        public BlobHelper(string storageConnectionString, int containerId)
+        public BlobHelper(string storageConnectionString)
         {
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(storageConnectionString);
             
-            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-
-            container = blobClient.GetContainerReference(containerId.ToString());
+            blobClient = storageAccount.CreateCloudBlobClient();
         }
 
-        public IEnumerable<IListBlobItem> GetAllBlobs()
+        public IEnumerable<IListBlobItem> GetAllBlobs(string containerName)
         {
-            container.ListBlobs()
+            container = blobClient.GetContainerReference(containerName.ToString());
+            return container.ListBlobs();
         }
 
-        public IEnumerable<IListBlobItem> GetBlobsByName(string blobName)
+        public IEnumerable<IListBlobItem> GetBlobsByName(string containerName, string blobName)
         {
-            throw new NotImplementedException();
+            return blobClient.ListBlobsWithPrefixSegmented(containerName + "/" + blobName).Results;
         }
 
-        public IEnumerable<IListBlobItem> GetBlobsByContentType(string contentType)
+        public IEnumerable<IListBlobItem> GetBlobsByExtension(string containerName, string extension)
         {
-            throw new NotImplementedException();
+            extension = extension.StartsWith(".") ? extension : extension.PadLeft(1, '.');
+
+            return
+                blobClient.GetContainerReference(containerName)
+                          .ListBlobs()
+                          .Where(x => x.Uri.AbsoluteUri.EndsWith(extension));
         }
 
-        public IEnumerable<IListBlobItem> GetBlobsByModifiedDate(DateTime fromDate, DateTime toDate)
+        public IEnumerable<IListBlobItem> GetBlobsByModifiedDate(string containerName, DateTime fromDate, DateTime toDate)
         {
             throw new NotImplementedException();
         }
