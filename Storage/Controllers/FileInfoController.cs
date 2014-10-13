@@ -48,9 +48,9 @@ namespace Storage.Controllers
             }
         }
 
-        //api/fileinfo/FindDirectoryByName?containerName=123&blobName=freenas-dummie
+        //api/fileinfo/FindRootDirectoryNames?containerName=123&blobName=freenas-dummie
         [HttpGet]
-        [ActionName("FindDirectoryByName")]
+        [ActionName("FindRootDirectoryNames")]
         public IEnumerable<FileDetails> FindFileInfoByName(string containerName, string blobName)
         {
             IEnumerable<IListBlobItem> blobList = blobInteractor.GetBlobsByName(containerName, blobName);

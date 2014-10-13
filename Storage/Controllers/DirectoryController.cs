@@ -14,36 +14,29 @@ namespace Storage.Controllers
 {
     public class DirectoryController : ApiController
     {
-        private readonly BlobInteractor blobInteractor;
-        private readonly ContainerInteractor containerInteractor;
+        private readonly DirectoryInteractor directoryInteractor;
 
         public DirectoryController()
         {
-            blobInteractor =
-                InteractorFactory.MakeBlobInteractor(ConfigurationManager.ConnectionStrings["AzureStorage"].ConnectionString);
-
-            containerInteractor =
-                InteractorFactory.MakeContainerInteractor(
+            directoryInteractor =
+                InteractorFactory.MakeDirectoryInteractor(
                     ConfigurationManager.ConnectionStrings["AzureStorage"].ConnectionString);
         }
 
-        //api/directory/FindDirectoryByName?containerName=123&directoryName=myTestDir
+        //api/directory/FindRootDirectoryNames?containerName=123
         [HttpGet]
-        [ActionName("FindDirectoryByName")]
-        public IEnumerable<FileDetails> FindDirectoryByName(string containerName, string directoryName)
+        [ActionName("FindRootDirectoryNames")]
+        public IEnumerable<DirectoryDetails> FindRootDirectoryNames(string containerName)
         {
-            var blobList = containerInteractor.FindDirectoryByName(containerName, directoryName);
-            return null;
-            //foreach (CloudBlockBlob blob in blobList)
-            //{
-            //    yield return new FileDetails
-            //    {
-            //        Name = blob.Name,
-            //        Size = blob.Properties.Length,
-            //        ContentType = blob.Properties.ContentType,
-            //        Location = blob.Uri.AbsoluteUri
-            //    };
-            //}
+            return directoryInteractor.FindRootDirectoryNames(containerName);
         }
+
+        //api/directory/FindDirectoriesByName?containerName=123&dirName=test
+        [HttpGet]
+        [ActionName("FindDirectoriesByName")]
+        public IEnumerable<DirectoryDetails> FindDirectoriesByName(string containerName, string dirName)
+        {
+            return directoryInteractor.FindDirectoriesByName(containerName, dirName);
+            }
     }
 }

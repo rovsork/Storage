@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.WindowsAzure.StorageClient;
+using Models;
 
 namespace StorageInteractor
 {
@@ -8,6 +9,5 @@ namespace StorageInteractor
         CloudBlobContainer CreateNewContainer(string containerName);
         CloudBlobContainer GetContainerByName(string containerName);
         IEnumerable<CloudBlobContainer> GetAllContainerDetails();
-        dynamic FindDirectoryByName(string containerName, string directoryName);
     }
 }

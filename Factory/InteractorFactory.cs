@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataInteractor;
+﻿using DataInteractor;
 using StorageInteractor;
 
 namespace Factory
@@ -18,6 +13,11 @@ namespace Factory
         public static BlobInteractor MakeBlobInteractor(string connectionString)
         {
             return new BlobHelper(connectionString);
+        }
+
+        public static DirectoryInteractor MakeDirectoryInteractor(string connectionString)
+        {
+            return new DirectoryHelper(connectionString);
         }
     }
 }

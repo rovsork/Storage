@@ -46,9 +46,14 @@
   <ItemGroup>
     <Compile Include="BlobHelper.cs" />
     <Compile Include="ContainerHelper.cs" />
+    <Compile Include="DirectoryHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{4F8508C9-DA0F-475C-B6E9-C8A17736D1CF}</Project>
+      <Name>Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\StorageInteractor\StorageInteractor.csproj">
       <Project>{BEDFA24F-9610-4A06-B79B-2D4D1D8BF644}</Project>
       <Name>StorageInteractor</Name>

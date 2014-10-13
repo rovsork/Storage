@@ -46,7 +46,14 @@
   <ItemGroup>
     <Compile Include="ContainerInteractor.cs" />
     <Compile Include="BlobInteractor.cs" />
+    <Compile Include="DirectoryInteractor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Models\Models.csproj">
+      <Project>{4F8508C9-DA0F-475C-B6E9-C8A17736D1CF}</Project>
+      <Name>Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
