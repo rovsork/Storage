@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Http;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.StorageClient;
 using StorageInteractor;
@@ -17,7 +18,7 @@ namespace DataInteractor
         public BlobHelper(string storageConnectionString)
         {
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(storageConnectionString);
-            
+
             blobClient = storageAccount.CreateCloudBlobClient();
         }
 
@@ -29,7 +30,12 @@ namespace DataInteractor
 
         public IEnumerable<IListBlobItem> GetBlobsByName(string containerName, string blobName)
         {
-            return blobClient.ListBlobsWithPrefixSegmented(containerName + "/" + blobName).Results;
+            if (null == blobName)
+                blobName = "";
+            return blobClient.GetContainerReference(containerName)
+                             .ListBlobs()
+                             .OfType<CloudBlob>()
+                             .Where(x => x.Name.Contains(blobName));
         }
 
         public IEnumerable<IListBlobItem> GetBlobsByExtension(string containerName, string extension)
@@ -42,9 +48,27 @@ namespace DataInteractor
                           .Where(x => x.Uri.AbsoluteUri.EndsWith(extension));
         }
 
-        public IEnumerable<IListBlobItem> GetBlobsByModifiedDate(string containerName, DateTime fromDate, DateTime toDate)
+        public IEnumerable<IListBlobItem> GetBlobsByModifiedDate(string containerName, DateTime? fromDate, DateTime? toDate)
         {
-            throw new NotImplementedException();
+            if (null == fromDate)
+                fromDate = new DateTime(1800, 01, 01);
+            if (null == toDate)
+                toDate = new DateTime(9999, 01, 01);
+
+            return blobClient.GetContainerReference(containerName)
+                             .ListBlobs()
+                             .OfType<CloudBlob>()
+                             .Where(x => x.Properties != null &&
+                                         (x.Properties.LastModifiedUtc >= fromDate.Value.ToUniversalTime()
+                                          && x.Properties.LastModifiedUtc <= toDate.Value.ToUniversalTime()));
+        }
+
+        public CloudBlob GetFileByName(string containerName, string blobName)
+        {
+            return blobClient.GetContainerReference(containerName)
+                             .ListBlobs()
+                             .OfType<CloudBlob>()
+                             .Single(x => x.Name.Equals(blobName));
         }
     }
 }

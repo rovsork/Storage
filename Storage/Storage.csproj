@@ -111,8 +111,12 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="ControllerHelpers\AzureBlobStorageMultipartProvider.cs" />
+    <Compile Include="ControllerHelpers\DownloadHelper.cs" />
     <Compile Include="Controllers\ContainerController.cs" />
-    <Compile Include="Controllers\FileController.cs" />
+    <Compile Include="Controllers\DirectoryController.cs" />
+    <Compile Include="Controllers\DownloadController.cs" />
+    <Compile Include="Controllers\FileInfoController.cs" />
+    <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

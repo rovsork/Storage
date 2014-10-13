@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using DataInteractor;
+using Factory;
 using Microsoft.WindowsAzure.StorageClient;
 using Models;
 using Storage.ControllerHelpers;
@@ -16,11 +17,17 @@ namespace Storage.Controllers
 {
     public class ContainerController : ApiController
     {
+        private readonly BlobInteractor blobInteractor;
         private readonly ContainerInteractor containerInteractor;
 
         public ContainerController()
         {
-            containerInteractor = new ContainerHelper(ConfigurationManager.ConnectionStrings["AzureStorage"].ConnectionString);
+            blobInteractor =
+                InteractorFactory.MakeBlobInteractor(ConfigurationManager.ConnectionStrings["AzureStorage"].ConnectionString);
+
+            containerInteractor =
+                InteractorFactory.MakeContainerInteractor(
+                    ConfigurationManager.ConnectionStrings["AzureStorage"].ConnectionString);
         }
 
         //api/directory

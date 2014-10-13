@@ -8,7 +8,7 @@ using Storage.Controllers;
 
 namespace Storage.ControllerHelpers
 {
-    public class AzureBlobStorageMultipartProvider : MultipartFileStreamProvider
+    internal class AzureBlobStorageMultipartProvider : MultipartFileStreamProvider
     {
         private CloudBlobContainer _container;
         public AzureBlobStorageMultipartProvider(CloudBlobContainer container)

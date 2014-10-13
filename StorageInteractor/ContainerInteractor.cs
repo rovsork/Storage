@@ -8,5 +8,6 @@ namespace StorageInteractor
         CloudBlobContainer CreateNewContainer(string containerName);
         CloudBlobContainer GetContainerByName(string containerName);
         IEnumerable<CloudBlobContainer> GetAllContainerDetails();
+        dynamic FindDirectoryByName(string containerName, string directoryName);
     }
 }
