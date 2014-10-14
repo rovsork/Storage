@@ -70,5 +70,20 @@ namespace DataInteractor
                              .OfType<CloudBlob>()
                              .Single(x => x.Name.Equals(blobName));
         }
+
+        public IEnumerable<IListBlobItem> GetBlobsFromDir(string container, string [] directories)
+        {
+            
+            string uriDirectories = container;
+
+            foreach (var dirs in directories)
+                uriDirectories = uriDirectories + "/" + dirs;
+
+            Uri directoryUri = new Uri(blobClient.BaseUri, uriDirectories);
+
+            var blobDir = blobClient.GetBlobDirectoryReference(directoryUri.ToString());
+
+            return blobDir.ListBlobs();
+        }
     }
 }

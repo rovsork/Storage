@@ -104,5 +104,24 @@ namespace Storage.Controllers
                 };
             }
         }
+
+        //api/fileinfo/ListFileInfoFromDirectory?containerName=123&dir=testdit&dir=testsubdir
+        [HttpGet]
+        [ActionName("ListFileInfoFromDirectory")]
+        public IEnumerable<FileDetails> ListFileInfoFromDirectory(string containerName, [FromUri] string[] dir)
+        {
+            IEnumerable<IListBlobItem> blobList = blobInteractor.GetBlobsFromDir(containerName, dir);
+
+            foreach (CloudBlockBlob blob in blobList)
+            {
+                yield return new FileDetails
+                {
+                    Name = blob.Name,
+                    Size = blob.Properties.Length,
+                    ContentType = blob.Properties.ContentType,
+                    Location = blob.Uri.AbsoluteUri
+                };
+            }
+        }
     }
 }

@@ -15,5 +15,6 @@ namespace StorageInteractor
         IEnumerable<IListBlobItem> GetBlobsByExtension(string containerName, string extension);
         IEnumerable<IListBlobItem> GetBlobsByModifiedDate(string containerName, DateTime? fromDate, DateTime? toDate);
         CloudBlob GetFileByName(string containerName, string blobName);
+        IEnumerable<IListBlobItem> GetBlobsFromDir(string container, string [] directories);
     }
 }

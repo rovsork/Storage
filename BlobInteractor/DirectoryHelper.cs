@@ -47,7 +47,6 @@ namespace DataInteractor
 
         private List<DirectoryDetails> FindAllDirectoriesWithName(IEnumerable<IListBlobItem> blobList, List<DirectoryDetails> directoryDetails, string dirName)
         {
-
             var dirs = blobList.OfType<CloudBlobDirectory>()
                 .Where(x => x.Uri.LocalPath
                     .Replace(x.Parent.Uri.LocalPath, "")
